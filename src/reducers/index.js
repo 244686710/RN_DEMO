@@ -2,9 +2,11 @@
 
 import { combineReducers } from 'redux';
 import loginIn from './loginReducer';
+import counter from './counterReducer';
 
 const rootReducer = combineReducers({
-    loginIn: loginIn,
-})
+  loginIn: loginIn,
+  counter: counter,
+});
 
-export default rootReducer; // 导出，作为统一入口
+export default rootReducer;

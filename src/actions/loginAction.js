@@ -1,42 +1,45 @@
-import * as types from '../constants/loginType'; // 导入事件类型，用来做分配给各个事件
+'use strict';
+
+import * as types from '../constants/loginTypes';
 
 // 模拟用户信息
 let user = {
-    name: 'YuYD',
-    age: 28
+  name: 'zhangsan',
+  age: 24,
 }
 
-// 访问登陆接口， 根据返回结果来划分 action 属于那个type,然后返回对象，给 reducer 处理
+// 访问登录接口 根据返回结果来划分action属于哪个type,然后返回对象,给reducer处理
 export function login() {
-    console.log('登陆方法');
-    return dispatch => {
-        dispatch(isLogining()) //正在执行登陆请求
-        // 模拟用户登陆
-        let result = fetch('https://www.baidu.com/')
-            .then((res)=> {
-                dispatch(loginSuccess(true, user)); // 登陆请求完成
-            }).catch((e) => {
-                dispatch(loginError(false)) // 登陆请求失败
-            })
-    }
+  console.log('登录方法');
+  return dispatch => {
+    dispatch(isLogining());
+    // 模拟用户登录
+    let result = fetch('https://www.baidu.com/')
+      .then((res) => {
+        dispatch(loginSuccess(true, user));
+      }).catch((e) => {
+        dispatch(loginError(false));
+      })
+  }
 }
 
-function isLogining () {
-    return {
-       type: types.LOGIN_IN_DOING
-    }
+function isLogining() {
+  return {
+    type: types.LOGIN_IN_DOING
+  }
 }
 
 function loginSuccess(isSuccess, user) {
-    console.log('success')
-    return {
-        type: types.LOGIN_IN_DONE
-    }
+  console.log('success');
+  return {
+    type: types.LOGIN_IN_DONE,
+    user: user,
+  }
 }
 
 function loginError(isSuccess) {
-    console.log('error')
-    return {
-        type: types.loginError
-    }
+  console.log('error');
+  return {
+    type: types.LOGIN_IN_ERROR,
+  }
 }
